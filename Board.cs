@@ -18,12 +18,8 @@ namespace TicTacToeLambdaBoard
             return _state(column, row);
         }
 
-        public Board Add(Column column, Row row, Piece piece)
+        private Board AssignSlot(Column column, Row row, BoardSlot slot)
         {
-            var slot = piece == Piece.X 
-                ? BoardSlot.FilledWithX 
-                : BoardSlot.FilledWithY;
-
             return new Board((c, r) =>
             {
                 if (c == column && r == row)
@@ -37,19 +33,18 @@ namespace TicTacToeLambdaBoard
             });
         }
 
+        public Board Add(Column column, Row row, Piece piece)
+        {
+            var slot = piece == Piece.X
+                ? BoardSlot.FilledWithX
+                : BoardSlot.FilledWithY;
+
+            return AssignSlot(column, row, slot);
+        }
+
         public Board Remove(Column column, Row row)
         {
-            return new Board((c, r) =>
-            {
-                if (c == column && r == row)
-                {
-                    return BoardSlot.Empty;
-                }
-                else
-                {
-                    return _state(c, r);
-                }
-            });
+            return AssignSlot(column, row, BoardSlot.Empty);
         }
     }
 }
