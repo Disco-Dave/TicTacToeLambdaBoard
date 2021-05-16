@@ -4,11 +4,11 @@ namespace TicTacToeLambdaBoard
 {
     public abstract class BoardSlot
     {
-        public abstract T Match<T>(Func<T> onEmpty, Func<T> onX, Func<T> onY);
+        public abstract T Match<T>(Func<T> onEmpty, Func<T> onX, Func<T> onO);
 
         private sealed class EmptyInstance : BoardSlot
         {
-            public override T Match<T>(Func<T> onEmpty, Func<T> onX, Func<T> onY)
+            public override T Match<T>(Func<T> onEmpty, Func<T> onX, Func<T> onO)
             {
                 return onEmpty();
             }
@@ -16,17 +16,17 @@ namespace TicTacToeLambdaBoard
 
         private sealed class FilledWithXInstance : BoardSlot
         {
-            public override T Match<T>(Func<T> onEmpty, Func<T> onX, Func<T> onY)
+            public override T Match<T>(Func<T> onEmpty, Func<T> onX, Func<T> onO)
             {
                 return onX();
             }
         }
 
-        private sealed class FilledWithYInstance : BoardSlot
+        private sealed class FilledWithOInstance : BoardSlot
         {
-            public override T Match<T>(Func<T> onEmpty, Func<T> onX, Func<T> onY)
+            public override T Match<T>(Func<T> onEmpty, Func<T> onX, Func<T> onO)
             {
-                return onY();
+                return onO();
             }
         }
 
@@ -34,7 +34,7 @@ namespace TicTacToeLambdaBoard
 
         public static BoardSlot FilledWithX = new FilledWithXInstance();
 
-        public static BoardSlot FilledWithY = new FilledWithYInstance();
+        public static BoardSlot FilledWithO = new FilledWithOInstance();
     }
 }
 

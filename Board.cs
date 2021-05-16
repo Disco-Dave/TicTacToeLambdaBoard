@@ -37,7 +37,7 @@ namespace TicTacToeLambdaBoard
         {
             var slot = piece == Piece.X
                 ? BoardSlot.FilledWithX
-                : BoardSlot.FilledWithY;
+                : BoardSlot.FilledWithO;
 
             return AssignSlot(column, row, slot);
         }
